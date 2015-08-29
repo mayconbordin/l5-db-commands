@@ -9,6 +9,7 @@ class DriverFactory
 {
     /**
      * Create a driver for the database.
+     *
      * @param array $db The configuration of the database.
      * @return DriverContract
      * @throws DriverNotSupportedError
@@ -21,6 +22,9 @@ class DriverFactory
         switch ($db['driver']) {
             case MySQLDriver::NAME:
                 $driver = new MySQLDriver();
+                break;
+            case PostgreSQLDriver::NAME:
+                $driver = new PostgreSQLDriver();
                 break;
             default:
                 throw new DriverNotSupportedError("Driver '".$db['driver']."' is not supported.'");

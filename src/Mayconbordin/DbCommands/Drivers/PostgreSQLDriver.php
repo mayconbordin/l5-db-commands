@@ -3,9 +3,9 @@
 use Mayconbordin\DbCommands\Contracts\DriverContract;
 use Mayconbordin\DbCommands\Exceptions\DriverException;
 
-class MySQLDriver implements DriverContract
+class PostgreSQLDriver implements DriverContract
 {
-    const NAME = "mysql";
+    const NAME = "pgsql";
 
     /**
      * @var \PDO
@@ -22,7 +22,7 @@ class MySQLDriver implements DriverContract
         $this->db = $db;
 
         try {
-            $this->connection = new \PDO("mysql:host=".$db['host'], $db['username'], $db['password']);
+            $this->connection = new \PDO("pgsql:host={$db['host']};user={$db['username']};password={$db['password']}");
             $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $e) {
             throw new DriverException("Unable to connect to database.", "", $e->getCode(), $e);
@@ -31,8 +31,7 @@ class MySQLDriver implements DriverContract
 
     public function createDb()
     {
-        $cmd = "CREATE DATABASE IF NOT EXISTS ".$this->db['database']." CHARACTER SET ".array_get($this->db, 'charset', 'utf8')
-             . " COLLATE ".array_get($this->db, 'collation', 'utf8_unicode_ci').";";
+        $cmd = "CREATE DATABASE ".$this->db['database']." ENCODING ".array_get($this->db, 'charset', 'utf8').";";
 
         try {
             $this->connection->exec($cmd);
@@ -59,11 +58,11 @@ class MySQLDriver implements DriverContract
         $options   = [];
 
         if ($dataOnly === true) {
-            $options[] = '--no-create-info';
+            $options[] = '--data-only';
         }
 
-        $strCmd = "mysqldump -h %s -u %s -p%s %s %s";
-        $cmd = sprintf($strCmd, $this->db['host'], $this->db['username'], $this->db['password'], implode(' ', $options), $this->db['database']);
+        $strCmd = "pg_dump -h %s -U %s %s %s";
+        $cmd = sprintf($strCmd, $this->db['host'], $this->db['username'], implode(' ', $options), $this->db['database']);
 
         exec($cmd, $output, $returnVar);
 
@@ -79,8 +78,8 @@ class MySQLDriver implements DriverContract
         $returnVar = null;
         $output    = null;
 
-        $strCmd = "mysql -h %s -u %s -p%s %s < %s";
-        $cmd = sprintf($strCmd, $this->db['host'], $this->db['username'], $this->db['password'], $this->db['database'], $dumpFile);
+        $strCmd = "psql -h %s -U %s %s < %s";
+        $cmd = sprintf($strCmd, $this->db['host'], $this->db['username'], $this->db['database'], $dumpFile);
 
         exec($cmd, $output, $returnVar);
 
@@ -91,8 +90,8 @@ class MySQLDriver implements DriverContract
 
     public function shell()
     {
-        $strCmd = "mysql -h %s -u %s -p%s %s";
-        $cmd = sprintf($strCmd, $this->db['host'], $this->db['username'], $this->db['password'], $this->db['database']);
+        $strCmd = "psql -h %s -U %s %s";
+        $cmd = sprintf($strCmd, $this->db['host'], $this->db['username'], $this->db['database']);
 
         $process = proc_open($cmd, [STDIN, STDOUT, STDERR], $pipes);
 

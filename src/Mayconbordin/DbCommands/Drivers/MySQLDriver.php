@@ -19,6 +19,8 @@ class MySQLDriver implements DriverContract
 
     public function initialize(array $db)
     {
+        $this->db = $db;
+        
         try {
             $this->connection = new \PDO("mysql:host=".$db['host'], $db['username'], $db['password']);
             $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);

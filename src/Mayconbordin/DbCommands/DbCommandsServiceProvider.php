@@ -5,6 +5,7 @@ use Mayconbordin\DbCommands\Commands\DbCreate;
 use Mayconbordin\DbCommands\Commands\DbDrop;
 use Mayconbordin\DbCommands\Commands\DbDump;
 use Mayconbordin\DbCommands\Commands\DbRestore;
+use Mayconbordin\DbCommands\Commands\DbShell;
 
 class DbCommandsServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,7 @@ class DbCommandsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->commands([
-            DbCreate::class, DbDrop::class, DbDump::class, DbRestore::class
+            DbCreate::class, DbDrop::class, DbDump::class, DbRestore::class, DbShell::class
         ]);
     }
 }

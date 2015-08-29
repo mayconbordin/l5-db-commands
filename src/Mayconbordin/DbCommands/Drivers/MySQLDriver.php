@@ -20,7 +20,7 @@ class MySQLDriver implements DriverContract
     public function initialize(array $db)
     {
         $this->db = $db;
-        
+
         try {
             $this->connection = new \PDO("mysql:host=".$db['host'], $db['username'], $db['password']);
             $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -87,6 +87,22 @@ class MySQLDriver implements DriverContract
 
         if ($returnVar != 0) {
             throw new DriverException("Unable to restore the database dump.", "", $returnVar);
+        }
+    }
+
+    public function shell()
+    {
+        $returnVar = null;
+        $output    = null;
+
+        $strCmd = "mysql -h %s -u %s -p%s";
+
+        $cmd = sprintf($strCmd, $this->db['host'], $this->db['username'], $this->db['password'], $this->db['database']);
+
+        exec($cmd, $output, $returnVar);
+
+        if ($returnVar != 0) {
+            throw new DriverException("Unable to open database shell.", "", $returnVar);
         }
     }
 }

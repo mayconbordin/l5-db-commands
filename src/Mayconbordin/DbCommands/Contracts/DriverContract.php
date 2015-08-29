@@ -6,6 +6,7 @@ interface DriverContract
 {
     /**
      * Initialize the database connection based on the information provided.
+     *
      * @param array $db [driver=string; database=string; host=string; username=string; password=string; charset=string,default:utf8;
      *                   collation=string,default:utf8_unicode_ci]
      * @return void
@@ -15,6 +16,7 @@ interface DriverContract
 
     /**
      * Create the database.
+     *
      * @return void
      * @throws DriverException
      */
@@ -22,6 +24,7 @@ interface DriverContract
 
     /**
      * Drop the database.
+     *
      * @return void
      * @throws DriverException
      */
@@ -29,6 +32,7 @@ interface DriverContract
 
     /**
      * Dump the database schema and/or data and return it.
+     *
      * @param bool|false $dataOnly If only the data should be exported.
      * @return string
      * @throws DriverException
@@ -37,9 +41,18 @@ interface DriverContract
 
     /**
      * Restore the database with the dump file.
+     *
      * @param string $dumpFile Full path to the dump file.
      * @return void
      * @throws DriverException
      */
     public function restore($dumpFile);
+
+    /**
+     * Open a shell for the database.
+     *
+     * @return void
+     * @throws DriverException
+     */
+    public function shell();
 }

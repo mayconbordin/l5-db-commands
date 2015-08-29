@@ -28,7 +28,7 @@ class DbDrop extends DbCommand
     public function fire()
     {
         try {
-            $auto   = $this->option("auto");
+            $auto   = $this->option("no-interaction");
             $driver = $this->getDatabaseDriver();
 
             $this->info("Running on '" . App::environment() . "' environment.");

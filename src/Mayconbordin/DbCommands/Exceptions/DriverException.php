@@ -7,11 +7,12 @@ class DriverException extends \RuntimeException
     /**
      * @param string $message
      * @param string $sql
-     * @param Exception|null $previous
+     * @param int $code
+     * @param \Exception|null $previous
      */
-    public function __construct($message = "", $sql = "", Exception $previous = null)
+    public function __construct($message = "", $sql = "", $code = 0, \Exception $previous = null)
     {
-        parent::__construct($message, 0, $previous);
+        parent::__construct($message, $code, $previous);
         $this->sql = $sql;
     }
 

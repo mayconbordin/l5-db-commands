@@ -23,7 +23,7 @@ class MySQLDriver implements DriverContract
             $this->connection = new \PDO("mysql:host=".$db['host'], $db['username'], $db['password']);
             $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $e) {
-            throw new DriverException("Unable to connect to database.", $e->getCode(), $e);
+            throw new DriverException("Unable to connect to database.", "", $e->getCode(), $e);
         }
     }
 
@@ -35,7 +35,7 @@ class MySQLDriver implements DriverContract
         try {
             $this->connection->exec($cmd);
         } catch (\PDOException $e) {
-            throw new DriverException("Unable to create database.", $e->getCode(), $e);
+            throw new DriverException("Unable to create database.", $cmd, $e->getCode(), $e);
         }
     }
 
@@ -46,7 +46,7 @@ class MySQLDriver implements DriverContract
         try {
             $this->connection->exec($cmd);
         } catch (\PDOException $e) {
-            throw new DriverException("Unable to drop database.", $e->getCode(), $e);
+            throw new DriverException("Unable to drop database.", $cmd, $e->getCode(), $e);
         }
     }
 
@@ -66,7 +66,7 @@ class MySQLDriver implements DriverContract
         exec($cmd, $output, $returnVar);
 
         if ($returnVar != 0) {
-            throw new DriverException("Unable to execute dump on database.", $returnVar);
+            throw new DriverException("Unable to execute dump on database.", "", $returnVar);
         }
 
         return implode("\n", $output);
@@ -84,7 +84,7 @@ class MySQLDriver implements DriverContract
         exec($cmd, $output, $returnVar);
 
         if ($returnVar != 0) {
-            throw new DriverException("Unable to restore the database dump.", $returnVar);
+            throw new DriverException("Unable to restore the database dump.", "", $returnVar);
         }
     }
 }

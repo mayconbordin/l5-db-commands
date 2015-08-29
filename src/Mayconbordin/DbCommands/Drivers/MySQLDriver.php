@@ -80,7 +80,6 @@ class MySQLDriver implements DriverContract
         $output    = null;
 
         $strCmd = "mysql -h %s -u %s -p%s %s < %s";
-
         $cmd = sprintf($strCmd, $this->db['host'], $this->db['username'], $this->db['password'], $this->db['database'], $dumpFile);
 
         exec($cmd, $output, $returnVar);
@@ -92,17 +91,15 @@ class MySQLDriver implements DriverContract
 
     public function shell()
     {
-        $returnVar = null;
-        $output    = null;
-
         $strCmd = "mysql -h %s -u %s -p%s";
-
         $cmd = sprintf($strCmd, $this->db['host'], $this->db['username'], $this->db['password'], $this->db['database']);
 
-        exec($cmd, $output, $returnVar);
+        $process = proc_open($cmd, [STDIN, STDOUT, STDERR], $pipes);
 
-        if ($returnVar != 0) {
-            throw new DriverException("Unable to open database shell.", "", $returnVar);
+        if ($process === false) {
+            throw new DriverException("Unable to open database shell.");
         }
+
+        proc_close($process);
     }
 }

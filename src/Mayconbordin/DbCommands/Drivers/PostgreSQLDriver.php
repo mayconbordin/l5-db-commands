@@ -31,7 +31,7 @@ class PostgreSQLDriver implements DriverContract
 
     public function createDb()
     {
-        $cmd = "CREATE DATABASE ".$this->db['database']." ENCODING ".array_get($this->db, 'charset', 'utf8').";";
+        $cmd = "CREATE DATABASE ".$this->db['database']." ENCODING '".array_get($this->db, 'charset', 'utf8')."';";
 
         try {
             $this->connection->exec($cmd);

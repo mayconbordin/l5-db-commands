@@ -1,0 +1,28 @@
+{
+    "name": "mayconbordin/l5-db-commands",
+    "type": "library",
+    "description": "A set of commands to create/drop/dump/restore databases on Laravel 5",
+    "keywords": ["laravel", "laravel 5", "database", "commmands"],
+    "homepage": "https://github.com/mayconbordin/l5-db-commands",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maycon Viana Bordin",
+            "email": "mayconbordin@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "5.0.x|5.1.x",
+        "illuminate/console": "5.0.x|5.1.x"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mayconbordin\\DbCommands\\": "src/Mayconbordin/DbCommands/"
+        }
+    },
+    "minimum-stability": "dev"
+}

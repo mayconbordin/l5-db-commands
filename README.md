@@ -2,7 +2,7 @@
 
 A set of commands to create/drop/dump/restore/shell databases on Laravel 5.
 
-**Supported DBMSs**: MySQL and PostgreSQL.
+**Supported DBMSs**: MySQL, PostgreSQL and SQLite.
 
 ## Installation
 

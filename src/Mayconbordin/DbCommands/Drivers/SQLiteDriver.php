@@ -30,7 +30,7 @@ class SQLiteDriver implements DriverContract
         if (file_exists($this->db['database'])) return;
 
         try {
-            $this->connection = new \SQLite3($this->db['database'], SQLITE3_OPEN_CREATE);
+            $this->connection = new \SQLite3($this->db['database']);
         } catch (\Exception $e) {
             throw new DriverException("Unable to create database.", "", $e->getCode(), $e);
         }

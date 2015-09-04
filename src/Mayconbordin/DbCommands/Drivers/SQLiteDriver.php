@@ -23,13 +23,6 @@ class SQLiteDriver implements DriverContract
     public function initialize(array $db)
     {
         $this->db = $db;
-
-        try {
-            $this->connection = new \PDO("mysql:host=".$db['host'], $db['username'], $db['password']);
-            $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        } catch (\PDOException $e) {
-            throw new DriverException("Unable to connect to database.", "", $e->getCode(), $e);
-        }
     }
 
     public function createDb()

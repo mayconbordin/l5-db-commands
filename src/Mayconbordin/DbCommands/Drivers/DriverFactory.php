@@ -26,6 +26,9 @@ class DriverFactory
             case PostgreSQLDriver::NAME:
                 $driver = new PostgreSQLDriver();
                 break;
+            case SQLiteDriver::NAME:
+                $driver = new SQLiteDriver();
+                break;
             default:
                 throw new DriverNotSupportedError("Driver '".$db['driver']."' is not supported.'");
         }

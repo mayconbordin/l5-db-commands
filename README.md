@@ -1,5 +1,7 @@
 # l5-db-commands
 
+[![Latest Stable Version](https://poser.pugx.org/mayconbordin/l5-db-commands/version)](https://packagist.org/packages/mayconbordin/l5-db-commands) [![Total Downloads](https://poser.pugx.org/mayconbordin/l5-db-commands/downloads)](https://packagist.org/packages/mayconbordin/l5-db-commands) [![Latest Unstable Version](https://poser.pugx.org/mayconbordin/l5-db-commands/v/unstable)](//packagist.org/packages/mayconbordin/l5-db-commands) [![License](https://poser.pugx.org/mayconbordin/l5-db-commands/license)](https://packagist.org/packages/mayconbordin/l5-db-commands)
+
 A set of commands to create/drop/dump/restore/shell databases on Laravel 5.
 
 **Supported DBMSs**: MySQL, PostgreSQL and SQLite.

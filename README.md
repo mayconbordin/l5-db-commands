@@ -64,3 +64,10 @@ Open a shell to an existing database with the default connection from the config
 
 *Options*:
  - `--database`: The name of the database connection in the configuration file.
+
+#### `db:exec:sql [options] [--] <file>`
+
+Execute SQL file from `<file>` to an existing database with the default connection from the configuration file.
+
+*Options*:
+ - `--database`: The name of the database connection in the configuration file.

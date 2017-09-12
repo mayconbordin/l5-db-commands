@@ -102,4 +102,19 @@ class MySQLDriver implements DriverContract
 
         proc_close($process);
     }
+
+    public function executeSql($sqlFile)
+    {
+        $returnVar = null;
+        $output    = null;
+
+        $strCmd = "mysql -h %s -u %s -p%s %s < %s";
+        $cmd = sprintf($strCmd, $this->db['host'], $this->db['username'], $this->db['password'], $this->db['database'], $sqlFile);
+
+        exec($cmd, $output, $returnVar);
+
+        if ($returnVar != 0) {
+            throw new DriverException("Unable to execute SQL file in the database.", "", $returnVar);
+        }
+    }
 }

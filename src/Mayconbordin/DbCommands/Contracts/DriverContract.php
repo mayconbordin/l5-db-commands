@@ -55,4 +55,12 @@ interface DriverContract
      * @throws DriverException
      */
     public function shell();
+
+    /**
+     * Run a sql file on the database.
+     *
+     * @return void
+     * @throws DriverException
+     */
+     public function executeSql($sqlFile);
 }

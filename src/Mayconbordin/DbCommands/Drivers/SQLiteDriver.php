@@ -99,4 +99,22 @@ class SQLiteDriver implements DriverContract
 
         proc_close($process);
     }
+
+    public function executeSql($sqlFile)
+    {
+        if (!CmdUtils::commandExists(self::CMD)) {
+            throw new CommandNotExistsError("Command ".self::CMD." does not exists.");
+        }
+
+        $returnVar = null;
+        $output    = null;
+
+        $cmd = sprintf("%s %s < %s", self::CMD, $this->db['database'], $sqlFile);
+
+        exec($cmd, $output, $returnVar);
+
+        if ($returnVar != 0) {
+            throw new DriverException("Unable to execute SQL file in the database.", "", $returnVar);
+        }
+    }
 }
